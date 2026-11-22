@@ -116,9 +116,11 @@ include $(BUILD_SHARED_LIBRARY)
 # The KitKat SPRD audio policy (apm/, AudioPolicyManagerBase based) cannot be built on
 # Nougat: libhardware_legacy's AudioPolicyManagerBase was removed in 5.0. The stock
 # audio policy manager is used together with configs/audio/audio_policy.conf instead.
-include $(LOCAL_PATH)/DumpData/Android.mk
-include $(LOCAL_PATH)/nv_exchange/Android.mk
-include $(LOCAL_PATH)/vb_effect/Android.mk
-include $(LOCAL_PATH)/vb_pga/Android.mk
+# (sub-makefiles overwrite LOCAL_PATH, so keep our own copy)
+GOYAVE3G_AUDIO_DIR := $(LOCAL_PATH)
+include $(GOYAVE3G_AUDIO_DIR)/DumpData/Android.mk
+include $(GOYAVE3G_AUDIO_DIR)/nv_exchange/Android.mk
+include $(GOYAVE3G_AUDIO_DIR)/vb_effect/Android.mk
+include $(GOYAVE3G_AUDIO_DIR)/vb_pga/Android.mk
 endif
 
