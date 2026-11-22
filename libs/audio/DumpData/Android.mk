@@ -21,6 +21,7 @@ LOCAL_SHARED_LIBRARIES :=  liblog libcutils libexpat libdl
 LOCAL_MODULE:= libdumpdata
 LOCAL_MODULE_TAGS := optional
 
+LOCAL_CFLAGS += $(GOYAVE3G_COMPAT_CFLAGS)
 include $(BUILD_SHARED_LIBRARY)
 
 

@@ -33,7 +33,7 @@ LOCAL_MODULE := gralloc.$(TARGET_BOARD_PLATFORM)
 LOCAL_MODULE_TAGS := optional
 
 SHARED_MEM_LIBS := \
-	libion \
+	libion_sprd \
 	libhardware
 
 LOCAL_SHARED_LIBRARIES := \
@@ -77,6 +77,7 @@ LOCAL_SRC_FILES := \
 	dump_bmp.cpp \
 
 #LOCAL_CFLAGS+= -DMALI_VSYNC_EVENT_REPORT_ENABLE
+LOCAL_CFLAGS += $(GOYAVE3G_COMPAT_CFLAGS)
 include $(BUILD_SHARED_LIBRARY)
 
 endif

@@ -14,6 +14,7 @@ LOCAL_SHARED_LIBRARIES += libcutils   \
                           libhardware \
                           libhardware_legacy \
 			  libcutils
+LOCAL_CFLAGS += $(GOYAVE3G_COMPAT_CFLAGS)
 include $(BUILD_SHARED_LIBRARY)
 
 

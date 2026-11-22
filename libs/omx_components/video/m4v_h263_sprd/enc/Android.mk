@@ -24,6 +24,7 @@ LOCAL_ARM_MODE := arm
 
 LOCAL_SHARED_LIBRARIES := \
 	libbinder \
+	libmemoryheapion_sprd \
 	libstagefright \
 	libstagefright_omx \
 	libstagefright_foundation \
@@ -40,4 +41,5 @@ ifeq ($(strip $(TARGET_BOARD_CAMERA_ANTI_SHAKE)),true)
 LOCAL_CFLAGS += -DANTI_SHAKE
 endif
 
+LOCAL_CFLAGS += $(GOYAVE3G_COMPAT_CFLAGS)
 include $(BUILD_SHARED_LIBRARY)

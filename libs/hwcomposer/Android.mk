@@ -28,7 +28,8 @@ LOCAL_MODULE_RELATIVE_PATH := hw
 
 LOCAL_SHARED_LIBRARIES := \
 	libbinder \
-	libion \
+	libmemoryheapion_sprd \
+	libion_sprd \
 	liblog \
 	libEGL \
 	libutils \
@@ -206,6 +207,7 @@ LOCAL_CFLAGS += -DSPRD_DITHER_ENABLE
 endif
 
 LOCAL_MODULE_TAGS := optional
+LOCAL_CFLAGS += $(GOYAVE3G_COMPAT_CFLAGS)
 include $(BUILD_SHARED_LIBRARY)
 
 endif

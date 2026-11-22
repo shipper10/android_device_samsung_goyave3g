@@ -19,4 +19,5 @@ include $(CLEAR_VARS)
 LOCAL_SRC_FILES := healthd.cpp
 LOCAL_MODULE := libhealthd.sc8830
 LOCAL_C_INCLUDES := system/core/healthd
+LOCAL_CFLAGS += $(GOYAVE3G_COMPAT_CFLAGS)
 include $(BUILD_STATIC_LIBRARY)

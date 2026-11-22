@@ -110,8 +110,15 @@ endif
 
 LOCAL_MODULE_TAGS := optional
 
+LOCAL_CFLAGS += $(GOYAVE3G_COMPAT_CFLAGS)
 include $(BUILD_SHARED_LIBRARY)
 
-include $(call all-makefiles-under,$(LOCAL_PATH))
+# The KitKat SPRD audio policy (apm/, AudioPolicyManagerBase based) cannot be built on
+# Nougat: libhardware_legacy's AudioPolicyManagerBase was removed in 5.0. The stock
+# audio policy manager is used together with configs/audio/audio_policy.conf instead.
+include $(LOCAL_PATH)/DumpData/Android.mk
+include $(LOCAL_PATH)/nv_exchange/Android.mk
+include $(LOCAL_PATH)/vb_effect/Android.mk
+include $(LOCAL_PATH)/vb_pga/Android.mk
 endif
 

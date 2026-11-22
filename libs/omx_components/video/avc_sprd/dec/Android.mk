@@ -26,6 +26,7 @@ LOCAL_ARM_MODE := arm
 
 LOCAL_SHARED_LIBRARIES := \
 	libbinder \
+	libmemoryheapion_sprd \
 	libstagefright \
 	libstagefright_omx \
 	libstagefright_foundation \
@@ -38,4 +39,5 @@ LOCAL_SHARED_LIBRARIES := \
 LOCAL_MODULE := libstagefright_sprd_h264dec
 LOCAL_MODULE_TAGS := optional
 
+LOCAL_CFLAGS += $(GOYAVE3G_COMPAT_CFLAGS)
 include $(BUILD_SHARED_LIBRARY)

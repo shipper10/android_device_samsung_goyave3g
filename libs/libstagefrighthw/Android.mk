@@ -20,6 +20,7 @@ LOCAL_EXPORT_C_INCLUDE_DIRS := \
 
 LOCAL_SHARED_LIBRARIES :=       \
         libbinder               \
+        libmemoryheapion_sprd               \
         libutils                \
         libcutils               \
         libui                   \
@@ -30,5 +31,6 @@ LOCAL_MODULE := libstagefrighthw
 
 LOCAL_CFLAGS:= -DLOG_TAG=\"$(TARGET_BOARD_PLATFORM).libstagefright\"
 
+LOCAL_CFLAGS += $(GOYAVE3G_COMPAT_CFLAGS)
 include $(BUILD_SHARED_LIBRARY)
 

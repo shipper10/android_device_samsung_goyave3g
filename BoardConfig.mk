@@ -86,7 +86,7 @@ BOARD_EGL_CFG := device/samsung/goyave3g/configs/egl.cfg
 BOARD_USE_MHEAP_SCREENSHOT := true
 BOARD_EGL_WORKAROUND_BUG_10194508 := true
 TARGET_RUNNING_WITHOUT_SYNC_FRAMEWORK := true
-# HWUI_COMPILE_FOR_PERF := true
+# HWUI_COMPILE_FOR_PERF is GCC-only (breaks clang with -mapcs): keep it disabled
 USE_SPRD_HWCOMPOSER := true
 USE_OPENGL_RENDERER := true
 USE_OVERLAY_COMPOSER_GPU := true
@@ -108,7 +108,6 @@ BOARD_USE_LIBATCHANNEL_WRAPPER := true
 BOARD_SPRD_RIL := true
 BOARD_SAMSUNG_RIL := true
 BOARD_USE_SAMSUNG_COLORFORMAT := true
-BOARD_NEEDS_MEMORYHEAPION_SPRD := true
 TARGET_GLOBAL_CFLAGS += -DSPRD_HARDWARE
 
 # healthd
@@ -121,6 +120,8 @@ BOARD_KERNEL_PAGESIZE := 2048
 
 TARGET_KERNEL_CONFIG := goyave3g_defconfig
 TARGET_KERNEL_SOURCE := kernel/samsung/goyave3g
+# Prebuilt zImage committed in this repo (no kernel source in the manifest): installed by
+# vendor/cm/build/tasks/kernel.mk.
 TARGET_PREBUILT_KERNEL := device/samsung/goyave3g/kernel
 
 BOARD_MKBOOTIMG_ARGS := --kernel_offset 0x00008000 --ramdisk_offset 0x01000000 --tags_offset 0x00000100 --dt device/samsung/goyave3g/dt.img
@@ -145,3 +146,10 @@ PRODUCT_PREBUILT_WEBVIEWCHROMIUM := yes
 
 # CMHW
 BOARD_HARDWARE_CLASS := device/samsung/goyave3g/cmhw/
+
+# KitKat blobs/HALs use text relocations (needed by the Nougat linker and sepolicy).
+TARGET_NEEDS_PLATFORM_TEXT_RELOCATIONS := true
+
+# Compatibility definitions for the SPRD HAL sources (replaces the old patches to
+# system/core, hardware/libhardware and frameworks/native); see libs/compat/sprd_compat.h.
+GOYAVE3G_COMPAT_CFLAGS := -include device/samsung/goyave3g/libs/compat/sprd_compat.h

@@ -1,0 +1,22 @@
+diff --git a/media/libstagefright/ACodec.cpp b/media/libstagefright/ACodec.cpp
+index a11494d..9f3c9ab 100644
+--- a/media/libstagefright/ACodec.cpp
++++ b/media/libstagefright/ACodec.cpp
+@@ -1415,6 +1415,17 @@ void ACodec::dumpBuffers(OMX_U32 portIndex) {
+ #ifdef USE_SAMSUNG_COLORFORMAT
+ void ACodec::setNativeWindowColorFormat(OMX_COLOR_FORMATTYPE &eNativeColorFormat)
+ {
++    // SPRD (SC8830) hardware decoders: the SPRD gralloc uses its own HAL pixel formats
++    // (HAL_PIXEL_FORMAT_YCbCr_420_SP = 0x19, HAL_PIXEL_FORMAT_YCbCr_420_P = 0x13).
++    if (!strcasecmp(mComponentName.c_str(), "OMX.sprd.mpeg4.decoder")
++        || !strcasecmp(mComponentName.c_str(), "OMX.sprd.h263.decoder")
++        || !strcasecmp(mComponentName.c_str(), "OMX.sprd.h264.decoder")
++        || !strcasecmp(mComponentName.c_str(), "OMX.sprd.vpx.decoder")) {
++        eNativeColorFormat = (eNativeColorFormat == OMX_COLOR_FormatYUV420SemiPlanar)
++                ? (OMX_COLOR_FORMATTYPE)0x19 : (OMX_COLOR_FORMATTYPE)0x13;
++        return;
++    }
++
+     // In case of Samsung decoders, we set proper native color format for the Native Window
+     if (!strcasecmp(mComponentName.c_str(), "OMX.SEC.AVC.Decoder")
+         || !strcasecmp(mComponentName.c_str(), "OMX.SEC.FP.AVC.Decoder")
