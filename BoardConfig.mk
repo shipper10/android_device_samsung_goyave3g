@@ -89,8 +89,8 @@ TARGET_RUNNING_WITHOUT_SYNC_FRAMEWORK := true
 # HWUI_COMPILE_FOR_PERF is GCC-only (breaks clang with -mapcs): keep it disabled
 USE_SPRD_HWCOMPOSER := true
 USE_OPENGL_RENDERER := true
-USE_OVERLAY_COMPOSER_GPU := true
-DEVICE_FORCE_VIDEO_GO_OVERLAYCOMPOSER := true
+# OverlayComposer needs ui/FramebufferNativeWindow.h, which no longer exists on 7.1
+USE_OVERLAY_COMPOSER_GPU := false
 TARGET_FORCE_HWC_FOR_VIRTUAL_DISPLAYS := true
 TARGET_GLOBAL_CFLAGS += -DSC8830_HWC
 
@@ -152,4 +152,8 @@ TARGET_NEEDS_PLATFORM_TEXT_RELOCATIONS := true
 
 # Compatibility definitions for the SPRD HAL sources (replaces the old patches to
 # system/core, hardware/libhardware and frameworks/native); see libs/compat/sprd_compat.h.
-GOYAVE3G_COMPAT_CFLAGS := -include device/samsung/goyave3g/libs/compat/sprd_compat.h
+# SPRD kernel uapi headers (video/sprd_fb.h, video/ion_sprd.h, video/gsp_types_shark.h), taken from the
+# SM-T116 kernel source. KERNEL_OBJ/usr is never generated because only a prebuilt kernel is used.
+GOYAVE3G_KERNEL_HEADERS := device/samsung/goyave3g/libs/kernel-headers-sprd
+GOYAVE3G_COMPAT_CFLAGS := -include device/samsung/goyave3g/libs/compat/sprd_compat.h \
+    -I$(GOYAVE3G_KERNEL_HEADERS) -I$(GOYAVE3G_KERNEL_HEADERS)/video

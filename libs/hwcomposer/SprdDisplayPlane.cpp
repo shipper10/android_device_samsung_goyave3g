@@ -93,7 +93,7 @@ void SprdDisplayPlane::setGeometry(unsigned int width, unsigned int height, int 
 private_handle_t* SprdDisplayPlane:: createPlaneBuffer(int index)
 {
     private_handle_t* BufHandle = NULL;
-    int stride;
+    uint32_t stride;
     int size;
 
     if (index < 0)
@@ -102,7 +102,7 @@ private_handle_t* SprdDisplayPlane:: createPlaneBuffer(int index)
         return NULL;
     }
 
-    GraphicBufferAllocator::get().alloc(mWidth, mHeight, mFormat, mPlaneUsage, (buffer_handle_t*)&BufHandle, &stride);
+    GraphicBufferAllocator::get().allocate(mWidth, mHeight, mFormat, mPlaneUsage, (buffer_handle_t*)&BufHandle, &stride, 0, "SprdDisplayPlane");
     if (BufHandle == NULL)
     {
         ALOGE("SprdDisplayPlane cannot alloc buffer");

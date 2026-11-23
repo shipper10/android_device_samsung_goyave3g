@@ -60,6 +60,11 @@
 #define GRALLOC_USAGE_CAMERA_BUFFER         0x04000000
 #endif
 
+/* ---- linux/fb.h ---- */
+#ifndef FB_ACTIVATE_NODISP
+#define FB_ACTIVATE_NODISP 1
+#endif
+
 /* ---- media/openmax (OMX_IVCommon.h / OMX_Index.h additions) ---- */
 #ifndef OMX_SPRD_COLOR_FormatYVU420SemiPlanar
 #define OMX_SPRD_COLOR_FormatYVU420SemiPlanar ((OMX_COLOR_FORMATTYPE)0x7FD00001)

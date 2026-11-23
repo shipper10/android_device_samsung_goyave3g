@@ -1356,7 +1356,7 @@ void SPRDAVCEncoder::MyRGB2YUVThreadHandle::onMessageReceived(const sp<AMessage>
 void SPRDAVCEncoder::sendConvertMessage(OMX_BUFFERHEADERTYPE *buffer)
 
 {
-    sp<AMessage> msg = new AMessage(kWhatConvert, mHandler_enc->id());
+    sp<AMessage> msg = new AMessage(kWhatConvert, mHandler_enc);
     msg->setPointer("header", buffer);
     msg->post();
 }
@@ -1436,7 +1436,7 @@ void SPRDAVCEncoder::onMessageReceived(const sp<AMessage> &msg) {
                     {
                         //ALOGI("wfd: send msg to:Thread%d.",j);
                         rgb2yuv_thread_status[j] = RGB2YUR_THREAD_BUSY;
-                        sp<AMessage> msg = new AMessage(kWhatRgb2Yuv, mHandler_rgb2yuv[j]->id());
+                        sp<AMessage> msg = new AMessage(kWhatRgb2Yuv, mHandler_rgb2yuv[j]);
                         sp<msg_addr_for_convert> addr_object = new msg_addr_for_convert;
                         addr_object->buf_number = mIncomingBufNum;
                         addr_object->internal_index = j;
