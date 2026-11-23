@@ -155,5 +155,5 @@ TARGET_NEEDS_PLATFORM_TEXT_RELOCATIONS := true
 # SPRD kernel uapi headers (video/sprd_fb.h, video/ion_sprd.h, video/gsp_types_shark.h), taken from the
 # SM-T116 kernel source. KERNEL_OBJ/usr is never generated because only a prebuilt kernel is used.
 GOYAVE3G_KERNEL_HEADERS := device/samsung/goyave3g/libs/kernel-headers-sprd
-GOYAVE3G_COMPAT_CFLAGS := -include device/samsung/goyave3g/libs/compat/sprd_compat.h \
+GOYAVE3G_COMPAT_CFLAGS := -include device/samsung/goyave3g/libs/compat/sprd_compat.h -Wno-error \
     -I$(GOYAVE3G_KERNEL_HEADERS) -I$(GOYAVE3G_KERNEL_HEADERS)/video

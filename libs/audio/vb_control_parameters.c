@@ -1792,7 +1792,7 @@ static void * vbc_ctl_modem_monitor_routine(void *arg)
     ALOGD("vbc_ctl_modem_monitor_routine in");
     if( !adev) {
             ALOGD("vbc_ctl_modem_monitor_routine:error adev is null");
-            return -1;
+            return NULL;
     }
     do {
        fd = socket_local_client("modemd",
