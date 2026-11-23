@@ -122,9 +122,19 @@ TARGET_KERNEL_CONFIG := goyave3g_defconfig
 TARGET_KERNEL_SOURCE := kernel/samsung/goyave3g
 # Prebuilt zImage committed in this repo (no kernel source in the manifest): installed by
 # vendor/cm/build/tasks/kernel.mk.
+# Kernel selection. The stock kernel (from the T116XXU0AQA2 boot.img) matches the
+# stock mali.ko (vermagic 3.10.17-1114920). Set to true if mali.ko refuses to load
+# into the custom kernel ("Invalid module format" in dmesg).
+GOYAVE3G_USE_STOCK_KERNEL ?= false
+ifeq ($(GOYAVE3G_USE_STOCK_KERNEL),true)
+TARGET_PREBUILT_KERNEL := device/samsung/goyave3g/prebuilt/stock-boot/kernel
+GOYAVE3G_DT_IMG := device/samsung/goyave3g/prebuilt/stock-boot/dt.img
+else
 TARGET_PREBUILT_KERNEL := device/samsung/goyave3g/kernel
+GOYAVE3G_DT_IMG := device/samsung/goyave3g/dt.img
+endif
 
-BOARD_MKBOOTIMG_ARGS := --kernel_offset 0x00008000 --ramdisk_offset 0x01000000 --tags_offset 0x00000100 --dt device/samsung/goyave3g/dt.img
+BOARD_MKBOOTIMG_ARGS := --kernel_offset 0x00008000 --ramdisk_offset 0x01000000 --tags_offset 0x00000100 --dt $(GOYAVE3G_DT_IMG)
 
 # Init
 TARGET_NR_SVC_SUPP_GIDS := 24
