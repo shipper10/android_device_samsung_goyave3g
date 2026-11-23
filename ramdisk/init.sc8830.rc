@@ -17,6 +17,8 @@ on early-init
     # (on early-boot) with mknod.
 
 on init
+    # mount point for /efs (fstab.sc8830); was in the removed legacy init.rc
+    mkdir /efs 0774 radio system
     mkdir /productinfo 0771 system system
 
  # See storage config details at http://source.android.com/tech/storage/
@@ -496,6 +498,13 @@ on property:vnswap.enabled=true
 service srtd /system/xbin/srtd
     class main
     socket srtserver stream 0777 system system
+    user root
+    group root
+    oneshot
+
+# Moved from the legacy KitKat init.rc
+service prepare_param /system/bin/prepare_param.sh /dev/block/platform/sprd-sdhci.3/by-name/PARAM
+    class main
     user root
     group root
     oneshot

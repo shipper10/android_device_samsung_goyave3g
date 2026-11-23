@@ -33,8 +33,10 @@ PRODUCT_PROPERTY_OVERRIDES += \
 	ro.product.locale.region=GB
 
 # Rootdir files
+# NOTE: do NOT ship a device init.rc. A KitKat init.rc replaced the stock 7.1 one
+# (no zygote import, no cgroup/stune setup, ...). Device specifics live in
+# init.sc8830.rc, which the stock init.rc imports via /init.${ro.hardware}.rc.
 ROOTDIR_FILES := \
-	$(LOCAL_PATH)/ramdisk/init.rc \
 	$(LOCAL_PATH)/ramdisk/init.board.rc \
 	$(LOCAL_PATH)/ramdisk/init.container.rc \
 	$(LOCAL_PATH)/ramdisk/init.sc8830.rc \
