@@ -129,6 +129,9 @@ GOYAVE3G_USE_STOCK_KERNEL ?= false
 ifeq ($(GOYAVE3G_USE_STOCK_KERNEL),true)
 TARGET_PREBUILT_KERNEL := device/samsung/goyave3g/prebuilt/stock-boot/kernel
 GOYAVE3G_DT_IMG := device/samsung/goyave3g/prebuilt/stock-boot/dt.img
+# The stock 3.10.17 kernel accepts SELinux policy versions 15-28 only (7.1 defaults to
+# 30). The workflow strips the xperm rules (scripts/strip_xperm.py) for this case.
+POLICYVERS := 28
 else
 TARGET_PREBUILT_KERNEL := device/samsung/goyave3g/kernel
 GOYAVE3G_DT_IMG := device/samsung/goyave3g/dt.img
